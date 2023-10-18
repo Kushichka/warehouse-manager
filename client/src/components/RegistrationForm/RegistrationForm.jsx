@@ -3,10 +3,15 @@ import axios from 'axios';
 
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
-export const LoginForm = () => {
+export const RegistrationForm = () => {
 
+    const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const loginHandler = (e) => {
+        setLogin(e.target.value);
+    }
 
     const emailHandler = (e) => {
         setEmail(e.target.value);
@@ -16,9 +21,9 @@ export const LoginForm = () => {
         setLoading(true);
 
         try {
-            const {data} = await axios.get(`http://localhost:5000/api/users/login/${email}`);  
-
-            console.log(data);
+            await axios.post('http://localhost:5000/api/users/registration', { login, email});
+            
+            console.log('User was successfully registered!');
         } catch (error) {
             console.log('User was not registered ', error);
         } finally {
@@ -30,11 +35,19 @@ export const LoginForm = () => {
         <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
                 <Header as='h2' color='teal' textAlign='center'>
-                    Log-in to your account
+                    Sign up your account
                 </Header>
 
                 <Form size='large' onSubmit={submitHandler}>
                     <Segment stacked>
+                        <Form.Input 
+                            onChange={loginHandler}
+                            value={login}
+                            fluid 
+                            icon='user' 
+                            iconPosition='left' 
+                            placeholder='Login'
+                        />
 
                         <Form.Input
                             onChange={emailHandler}
@@ -47,7 +60,7 @@ export const LoginForm = () => {
                         />
 
                         <Button loading={loading} color='teal' fluid size='large'>
-                            Login
+                            Sign Up
                         </Button>
                     </Segment>
                 </Form>

@@ -1,21 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 
-import userRoutes from './routes/userRoutes.js';
+import routes from './routes/routes.js';
 import './db.js';
 
 const port = process.env.PORT || 5000;
-const app = express();
+const server = express();
 
-app.use(cors({
-    methods: 'GET,POST',
-    credentials: true
-}));
+server.use(cors());
+server.use(express.json());
 
-app.use(express.json());
-app.use('/users', userRoutes);
+server.use('/api', routes);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 

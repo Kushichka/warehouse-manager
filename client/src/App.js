@@ -1,9 +1,9 @@
-import { LoginForm } from './components/LoginForm/LoginForm';
+import { RegistrationForm } from './components/RegistrationForm/RegistrationForm';
 
 export const App = () => {
   return (
     <div className="App">
-      <LoginForm />
+      <RegistrationForm />
     </div>
   );
 }
