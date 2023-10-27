@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import 'dotenv/config';
 
-const start = async () => {
+(async () => {
     try {
         await mongoose.connect(process.env.DB_URL, {
             useNewUrlParser: true,
@@ -12,6 +12,5 @@ const start = async () => {
     } catch (error) {
         console.log(error);
     }
-}
+})();
 
-start();

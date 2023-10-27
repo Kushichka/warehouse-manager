@@ -1,0 +1,33 @@
+@use '../../styles/colors.scss' as color;
+
+.navbar {
+    background-color: color.$primary;
+    border-radius: 4px;
+    position: sticky;
+    top: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
+
+    &_list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 20px 0;
+    }
+
+    &_item {
+        background-color: color.$primary_light;
+        padding: 10px 0 10px 20px;
+        color: color.$white;
+        font-size: 18px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: color.$secondary;
+        }
+    }
+}
+
+.active {
+    background-color: color.$secondary;
+}

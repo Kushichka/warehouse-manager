@@ -1,19 +1,20 @@
 import { Router } from 'express';
-import { body } from 'express-validator';
+import { check } from 'express-validator';
 
 import { createUser, getUserByEmail } from '../controllers/userController.js';
 
 const router = new Router();
 
 router.post('/registration',
-    body('login').isLength({min: 3, max: 24}),
-    body('email').isEmail(),
-    body('password').isLength({min: 6, max: 32}), 
+    check('login', 'Login must be in range from 3 to 24 characters').isLength({min: 3, max: 24}).escape(),
+    check('email', 'Incorrect email').isEmail(),
+    check('password', 'Password must be in range from 6 to 32 characters').isLength({min: 6, max: 32}), 
     createUser
 );
+
 router.post('/login', 
-    body('email').isEmail(),
-    body('password').not().isEmpty(),
+    check('email', 'Incorrect email').isEmail(),
+    check('password', "Password can't be empty").notEmpty(),
     getUserByEmail
 );
 

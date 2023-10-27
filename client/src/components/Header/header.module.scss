@@ -1,0 +1,29 @@
+@use '../../styles/colors.scss' as color;
+
+.header_wrapper {
+    background-color: color.$primary;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 2px 6px 2px rgba(60,64,67,.15);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.header_inner {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    color: color.$white;
+    font-size: 24px;
+
+    span {
+        color: color.$secondary;
+    }
+}
+
+.button_box {
+    position: relative;
+}

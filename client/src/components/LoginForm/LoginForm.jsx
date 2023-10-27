@@ -1,57 +1,124 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import classNames from 'classnames';
 
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { BiSolidLockAlt } from 'react-icons/bi';
+import { MdEmail } from 'react-icons/md';
+import { useGetUserByEmailMutation } from '../../api/userApi';
+import { setError } from '../../redux/slices/errorSlice';
+import { Button } from '../../ui/Button/Button';
 
-export const LoginForm = () => {
+import style from './loginForm.module.scss';
 
-    const [email, setEmail] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    const emailHandler = (e) => {
-        setEmail(e.target.value);
-    }
-
-    const submitHandler = async () => {
-        setLoading(true);
-
-        try {
-            const {data} = await axios.get(`http://localhost:5000/api/users/login/${email}`);  
-
-            console.log(data);
-        } catch (error) {
-            console.log('User was not registered ', error);
-        } finally {
-            setLoading(false);
+const inputData = [
+    {
+        placeholder: 'Email',
+        type: 'email',
+        icon: <MdEmail />,
+        rules: {
+            pattern: {
+                value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: 'Invalid email format'
+            }
+        }
+    },
+    {
+        placeholder: 'Password',
+        type: 'password',
+        icon: <BiSolidLockAlt />,
+        rules: {
+            minLength: {
+                value: 6,
+                message: 'Password length: 6-32 characters'
+            },
+            maxLength: {
+                value: 32,
+                message: 'Password length: 6-32 characters'
+            }
         }
     }
+];
+
+export const LoginForm = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [getUserbyEmail, { isError, isSuccess, data, error, isLoading }] = useGetUserByEmailMutation();
+    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
+
+    const onSubmit = async (data) => {
+
+        await getUserbyEmail({
+            email: data.Email,
+            password: data.Password
+        });
+    }
+
+    const inputs = inputData.map(({ type, placeholder, icon, rules }) => (
+        <div className={style.input_with_icon} key={placeholder}>
+            <div className={style.form_icon}>
+                {icon}
+            </div>
+
+            <input
+                className={style.form_input}
+                {...register(placeholder, rules)}
+                type={type}
+                placeholder={placeholder}
+
+            />
+
+            <p
+                className={classNames({
+                    [style.form_error]: true,
+                    [style.hide]: !errors[placeholder]
+                })}
+            >
+                {errors[placeholder]?.message || 'Error'}
+            </p>
+        </div>
+    ));
+
+    useEffect(() => {
+        if (isSuccess) {
+            console.log(data.user);
+            navigate('/');
+        };
+
+        if (isError) dispatch(setError(error.data));
+
+    }, [isSuccess, isError, data, error, dispatch, navigate]);
 
     return (
-        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-            <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h2' color='teal' textAlign='center'>
-                    Log-in to your account
-                </Header>
+        <div className={style.login}>
+            <div className={style.title_wrapper}>
+                <p>Log in</p>
+            </div>
 
-                <Form size='large' onSubmit={submitHandler}>
-                    <Segment stacked>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className={style.login_inner}>
+                    {inputs}
 
-                        <Form.Input
-                            onChange={emailHandler}
-                            value={email}
-                            fluid
-                            icon='mail'
-                            iconPosition='left'
-                            placeholder='Email'
-                            type='email'
+                    <div className={style.button_wrapper}>
+                        <Button
+                            name='Log In'
+                            color='primary'
+                            type='submit'
+                            loading={isLoading}
                         />
 
-                        <Button loading={loading} color='teal' fluid size='large'>
-                            Login
-                        </Button>
-                    </Segment>
-                </Form>
-            </Grid.Column>
-        </Grid>
+                        <div className={style.options}>
+                            <p>Don't have an account?</p>
+
+                            <Link className={style.button_login} to='/registration'>
+                                Sign up
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
     )
 }

@@ -1,0 +1,14 @@
+@use '../../../styles/colors.scss' as color;
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    &_item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: color.$white_dark;
+    }
+}

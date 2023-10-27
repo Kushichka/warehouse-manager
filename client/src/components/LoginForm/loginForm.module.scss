@@ -1,0 +1,80 @@
+@use '../../styles/colors.scss' as color;
+
+.login {
+    border-radius: 4px;
+    max-width: 300px;
+    background-color: color.$primary;
+
+    &_inner {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 30px;
+    }
+}
+
+.title_wrapper {
+    color: color.$secondary;
+    background-color: color.$primary_light;
+    border-radius: 4px;
+    font-size: 24px;
+    text-align: center;
+    padding: 20px;
+}
+
+.input_with_icon {
+    position: relative;
+}
+
+.form {
+    
+    &_icon {
+        position: absolute;
+        color: color.$primary;
+        font-size: 20px;
+        top: calc(50% - 17px);
+        left: 10px;
+    }
+
+    &_input {
+        width: 100%;
+        padding: 10px 20px 10px 35px;
+        font-size: 16px;
+        border-radius: 4px;
+        border: 1px solid color.$primary;
+        outline: none;
+    }
+
+    &_error {
+        color: red;
+        font-size: 14px;
+        text-align: right;
+    }
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: color.$white_dark;
+    font-size: 14px;
+}
+
+.button {
+
+    &_wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &_login {
+        color: color.$secondary;
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
+
+.hide {
+    visibility: hidden;
+}

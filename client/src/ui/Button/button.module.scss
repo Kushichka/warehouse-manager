@@ -1,0 +1,14 @@
+@use '../../styles/mixins.scss' as mixin;
+@use '../../styles/colors.scss' as color;
+
+.primary {
+    @include mixin.primaryButton;
+}
+
+.disabled {
+    @include mixin.clearButton;
+    color: color.$white;
+    background-color: color.$disabled;
+    padding: 10px 20px;
+    cursor: not-allowed;
+}

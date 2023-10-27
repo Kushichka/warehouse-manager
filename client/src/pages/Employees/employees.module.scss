@@ -1,0 +1,12 @@
+@use '../../styles/colors.scss' as color;
+
+.employees {
+    background-color: color.$primary;
+    height: 500vh;
+}
+
+.page_title {
+    color: color.$secondary;
+    font-size: 32px;
+    text-align: center;
+}

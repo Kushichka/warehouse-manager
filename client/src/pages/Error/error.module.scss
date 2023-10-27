@@ -1,0 +1,13 @@
+@use '../../styles/mixins.scss' as mixin;
+
+.error_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(60%);
+}
+
+.button {
+    @include mixin.primaryButton;
+}

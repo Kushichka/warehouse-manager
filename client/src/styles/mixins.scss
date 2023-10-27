@@ -1,0 +1,21 @@
+@use './colors.scss' as color;
+
+@mixin clearButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+@mixin primaryButton {
+    @include clearButton;
+    color: color.$white;
+    background-color: color.$secondary;
+    padding: 10px 20px;
+
+    &:hover {
+        background-color: color.$secondary_dark;
+    }
+}
+

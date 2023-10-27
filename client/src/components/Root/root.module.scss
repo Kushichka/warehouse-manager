@@ -1,0 +1,8 @@
+
+.root {
+    display: grid;
+    grid-template-columns: 20% calc(80% - 15px);
+    grid-template-rows: auto;
+    gap: 15px;
+}
+
