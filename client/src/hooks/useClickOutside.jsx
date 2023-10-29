@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import PropTypes from 'prop-types';
 
 export const useClickOutside = (state) => {
     const [open, setOpen] = useState(state);
@@ -21,4 +22,13 @@ export const useClickOutside = (state) => {
     }, []);
 
     return { ref, toggle, open };
+};
+
+useClickOutside.propTypes = {
+    state: PropTypes.bool.isRequired
 }
+
+useClickOutside.defaultProps = {
+    state: false
+}
+

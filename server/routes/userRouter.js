@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 
-import { createUser, getUserByEmail } from '../controllers/userController.js';
+import { createUser, getUserByEmail, logout, refresh } from '../controllers/userController.js';
 
 const router = new Router();
 
@@ -17,5 +17,8 @@ router.post('/login',
     check('password', "Password can't be empty").notEmpty(),
     getUserByEmail
 );
+
+router.post('/logout', logout);
+router.get('/refresh', refresh);
 
 export default router;

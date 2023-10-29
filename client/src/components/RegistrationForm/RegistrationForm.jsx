@@ -16,7 +16,6 @@ import { setError } from '../../redux/slices/errorSlice';
 import style from './registrationForm.module.scss';
 
 export const RegistrationForm = () => {
-
     const [userRegistration, { isError, isSuccess, data, error, isLoading }] = useUserRegistrationMutation();
     const {register, reset, handleSubmit, getValues, formState: { errors }} = useForm({ mode: 'onBlur' });
     const dispatch = useDispatch();

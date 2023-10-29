@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser'
 
 import routes from './routes/routes.js';
 import './db.js';
@@ -9,6 +10,7 @@ const server = express();
 
 server.use(cors());
 server.use(express.json());
+server.use(cookieParser());
 
 server.use('/api', routes);
 

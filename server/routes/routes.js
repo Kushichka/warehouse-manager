@@ -8,7 +8,7 @@ const router = new Router();
 router.use('/users', userRouter);
 
 router.get('/admin', authMiddleware, (req, res) => { // for test
-    res.json('hello world');
+    res.json(req.user);
 });
 
 export default router;

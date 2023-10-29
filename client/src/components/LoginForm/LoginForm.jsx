@@ -66,7 +66,6 @@ export const LoginForm = () => {
                 {...register(placeholder, rules)}
                 type={type}
                 placeholder={placeholder}
-
             />
 
             <p
@@ -82,7 +81,7 @@ export const LoginForm = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            console.log(data.user);
+            console.log(data);
             navigate('/');
         };
 

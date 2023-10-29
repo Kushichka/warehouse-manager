@@ -1,25 +1,25 @@
-import { validateToken } from "../services/token.js";
+import tokenService from "../services/tokenService.js";
 
 export const authMiddleware = (req, res, next) => {
     try {
         const authorizationHeader = req.headers.authorization;
         if(!authorizationHeader) {
-            return next('error authorizationHeader!');
+            return next('error authorizationHeader');
         }
 
         const token = authorizationHeader.split(' ')[1];
         if (!token) {
-            return next('error token!');
+            return next('error token');
         }
 
-        const data = validateToken(token);
+        const data = tokenService.validateAccessToken(token);
         if(!data) {
-            return next('error data!');
+            return next('error data');
         }
 
-        res.json({message: 'OK!'});
+        req.user = data;
         next();
     } catch (error) {
-        next('error middleware!');
+        next('error middleware');
     }
 }

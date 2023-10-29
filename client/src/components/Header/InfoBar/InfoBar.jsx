@@ -1,9 +1,11 @@
+import { memo } from 'react';
+
 import { BiCoinStack } from 'react-icons/bi';
 import { FaHelmetSafety } from 'react-icons/fa6';
 
 import style from './infoBar.module.scss';
 
-export const InfoBar = () => {
+export const InfoBar = memo(() => {
     return (
         <div className={style.info}>
             <div className={style.info_item}>
@@ -23,4 +25,4 @@ export const InfoBar = () => {
             </div>
         </div>
     )
-}
+});
