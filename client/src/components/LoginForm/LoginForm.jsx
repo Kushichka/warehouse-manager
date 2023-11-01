@@ -9,6 +9,7 @@ import { MdEmail } from 'react-icons/md';
 import { useGetUserByEmailMutation } from '../../api/userApi';
 import { setError } from '../../redux/slices/errorSlice';
 import { Button } from '../../ui/Button/Button';
+import { useLogin } from '../../hooks/useLogin';
 
 import style from './loginForm.module.scss';
 
@@ -44,15 +45,22 @@ const inputData = [
 export const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userLogin = useLogin();
     const [getUserbyEmail, { isError, isSuccess, data, error, isLoading }] = useGetUserByEmailMutation();
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
 
     const onSubmit = async (data) => {
-
-        await getUserbyEmail({
+        const user = await getUserbyEmail({
             email: data.Email,
             password: data.Password
         });
+        console.log(user);
+
+        if(user.data) {
+            userLogin(user.data);
+        } else {
+            console.log('false');
+        }
     }
 
     const inputs = inputData.map(({ type, placeholder, icon, rules }) => (
@@ -81,7 +89,6 @@ export const LoginForm = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            console.log(data);
             navigate('/');
         };
 

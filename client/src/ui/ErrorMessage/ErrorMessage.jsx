@@ -9,12 +9,12 @@ export const ErrorMessage = () => {
   const dispatch = useDispatch();
   const { message } = useSelector(state => state.error);
 
-  const isHide = message.length > 0 ? '' : 'hide';
+  const isHide = message?.length > 0 ? '' : 'hide';
 
   useEffect(() => {
     let deleteMessage = null;
 
-    if (message.length > 0) {
+    if (message?.length > 0) {
       deleteMessage = setTimeout(() => {
         dispatch(setError(''));
         

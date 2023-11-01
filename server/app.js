@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser'
@@ -8,7 +9,10 @@ import './db.js';
 const port = process.env.PORT || 5000;
 const server = express();
 
-server.use(cors());
+server.use(cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL
+}));
 server.use(express.json());
 server.use(cookieParser());
 

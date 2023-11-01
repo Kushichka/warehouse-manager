@@ -1,4 +1,5 @@
 @use '../../../styles/colors.scss' as color;
+@use '../../../styles/mixins.scss' as mixin;
 
 .dropdown {
     padding-top: 10px;
@@ -21,6 +22,20 @@
         // border-radius: 4px;
         padding: 10px 0;
         text-align: center;
+        
+        &_button {
+            @include mixin.clearButton;
+            border-radius: 0;
+            width: 100%;
+            background-color: color.$secondary_light;
+            color: color.$white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        &_button:hover {
+            background-color: color.$primary_light;
+        }
         
         &:hover {
             background-color: color.$primary_light;

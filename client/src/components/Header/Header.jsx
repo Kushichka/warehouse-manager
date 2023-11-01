@@ -10,7 +10,7 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import style from './header.module.scss';
 
 export const Header = () => {
-    const { isLogged } = useSelector(state => state.user);
+    const { isLogged, login } = useSelector(state => state.user);
     const {ref, toggle, open} = useClickOutside(false);    
 
     return (
@@ -27,7 +27,7 @@ export const Header = () => {
                             <InfoBar />
 
                             <div className={style.button_box}>
-                                <Button name='JohnDoe' color='primary' clickHandler={toggle} />
+                                <Button name={login} color='primary' clickHandler={toggle} />
 
                                 {open && <Dropdown ref={ref} />}
                             </div>
