@@ -54,12 +54,9 @@ export const LoginForm = () => {
             email: data.Email,
             password: data.Password
         });
-        console.log(user);
 
         if(user.data) {
             userLogin(user.data);
-        } else {
-            console.log('false');
         }
     }
 

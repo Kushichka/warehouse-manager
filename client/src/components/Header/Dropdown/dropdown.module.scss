@@ -4,8 +4,8 @@
 .dropdown {
     padding-top: 10px;
     position: absolute;
-    right: 0;
-    width: 140%;
+    right: 15px;
+    width: 140px;
 
     &_list {
         display: flex;
@@ -19,7 +19,6 @@
     &_item {
         background-color: color.$secondary_light;
         color: color.$white;
-        // border-radius: 4px;
         padding: 10px 0;
         text-align: center;
         

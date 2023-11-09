@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-const userSchema = mongoose.Schema({
+import { orderSchema } from "./orderSchema.js";
+
+const userSchema = new mongoose.Schema({
     login: {
         type: String,
         required: true,
@@ -18,6 +20,23 @@ const userSchema = mongoose.Schema({
     role: {
         type: String,
         default: 'user'
+    },
+    money: Number,
+    orders: [{
+        type: orderSchema,
+        default: {}
+    }],
+    employees: {
+        employees: [{
+            name: String // is required?
+        }],
+        max: Number
+    },
+    warehouse: {  
+        place: {
+            used: Number,
+            max: Number
+        }
     }
 });
 

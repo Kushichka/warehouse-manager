@@ -1,34 +1,24 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect } from "react"
 import PropTypes from 'prop-types';
 
-export const useClickOutside = (state) => {
-    const [open, setOpen] = useState(state);
-    const ref = useRef(null);
-
-    const toggle = () => setOpen(!open);
-
+export const useClickOutside = (ref, callback) => {
     useEffect(() => {
-        const clickOutsideHandler = (e) => {
+        const clickHandler = (e) => {
             if (ref.current && !ref.current.contains(e.target)) {
-                setOpen(false);
+               callback();
             }
         };
 
-        document.addEventListener('mousedown', clickOutsideHandler);
+        document.addEventListener('mousedown', clickHandler);
 
         return () => {
-            document.removeEventListener('mousedown', clickOutsideHandler);
+            document.removeEventListener('mousedown', clickHandler);
         }
-    }, []);
-
-    return { ref, toggle, open };
+    }, [ref, callback]);
 };
 
 useClickOutside.propTypes = {
-    state: PropTypes.bool.isRequired
-}
-
-useClickOutside.defaultProps = {
-    state: false
+    ref: PropTypes.element.isRequired,
+    callback: PropTypes.func.isRequired
 }
 
