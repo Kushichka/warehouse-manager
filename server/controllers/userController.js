@@ -12,12 +12,12 @@ export const createUser = async (req, res) => {
 
     const { login, email, password } = req.body;
 
-    const findEmail = await User.findOne({ email: { $regex: email, $options: 'i' } });
+    const findEmail = await User.findOne({ email: { $regex: email, $options: 'i' } }); // ignore register
     if (findEmail) {
         return res.status(400).json(`${findEmail.email} is already used`);
     }
 
-    const findLogin = await User.findOne({ login: { $regex: login, $options: 'i' } });
+    const findLogin = await User.findOne({ login: { $regex: login, $options: 'i' } }); // ignore register
     if (findLogin) {
         return res.status(400).json(`${findLogin.login} is already used`);
     }
@@ -42,7 +42,7 @@ export const getUserByEmail = async (req, res) => {
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email: { $regex: email, $options: 'i' } });
+    const user = await User.findOne({ email: { $regex: email, $options: 'i' } }); // ignore register
     if (!user) {
         return res.status(404).json('User not found');
     }

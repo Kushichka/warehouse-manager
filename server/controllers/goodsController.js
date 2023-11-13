@@ -7,20 +7,26 @@ export const createGoods = async (req, res) => {
         return res.status(400).json(errors.errors[0].msg);
     }
 
-    const { name, palletizing, price } = req.body;
+    try {
+        const { name, palletizing, price } = req.body;
 
-    const goods = await Goods.find();
-    if(!goods) {
-        return res.status(400).json("Can't find collection");
+        const goods = await Goods.find();
+        if(!goods) {
+            return res.status(400).json("Can't find collection");
+        }
+
+        for (const item of goods) {
+            if (item.name === name) {
+                return res.status(400).json(`${name} if already used`);
+            }
+        };
+
+        Goods.create({ name, palletizing, price });
+        return res.status(200).json('Success');
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json('Create goods error');
     }
 
-    for (const item of goods) {
-       if(item.name === name) {
-        return res.status(400).json(`${name} if already used`);
-       }
-    };
-
-    Goods.create({ name, palletizing, price });
-
-    return res.status(200).json('Success');
+    
 }

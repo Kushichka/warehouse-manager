@@ -15,7 +15,8 @@ export const orderSchema = new Schema({
         required: true
     },
     status: {
-        type: ['free', 'active', 'done', 'fail'],
+        type: String,
+        enum: ['free', 'active', 'done', 'fail'],
         default: 'free'
     }
 });
